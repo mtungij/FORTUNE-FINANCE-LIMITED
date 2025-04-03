@@ -1058,7 +1058,7 @@ public function get_totalLoanout($customer_id){
 			$this->db->select('
 				p.emply,
 				b.blanch_name,
-				SUM(l.loan_approve) AS total_loan_approved,
+				SUM(l.loan_aprove) AS total_loan_approved,
 				SUM(p.depost) AS total_deposit
 			');
 			$this->db->from('tbl_pay p');
