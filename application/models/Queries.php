@@ -1051,6 +1051,26 @@ public function get_totalLoanout($customer_id){
 		return $query->result();
 	}
 
+	public function get_payments_summary($comp_id) {
+        $this->db->select('
+            p.emply,
+            b.blanch_name,
+            SUM(l.loan_aprove) AS total_loan_approved,
+            SUM(p.depost) AS total_deposit
+        ');
+        $this->db->from('tbl_pay p');
+        $this->db->join('tbl_blanch b', 'p.blanch_id = b.blanch_id', 'inner'); 
+        $this->db->join('tbl_loans l', 'p.loan_id = l.loan_id', 'inner'); 
+        $this->db->where('p.comp_id', $comp_id); // Filtering by comp_id
+        $this->db->group_by(['p.emply', 'b.blanch_name']);
+        $this->db->order_by('b.blanch_name', 'ASC');
+        $this->db->order_by('p.emply', 'ASC');
+
+        $query = $this->db->get();
+        return $query->result();
+    }
+   
+
 	public function get_employee_transaction_filter($comp_id, $from = null, $to = null)
 {
     // If no date range is provided, default to today

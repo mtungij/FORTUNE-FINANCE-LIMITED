@@ -2193,7 +2193,7 @@ public function create_withdrow_balance($customer_id){
           $withMoney = ($blanch_capital) - ($new_balance + $sum_total_loanFee);
            
           //admin role
-          $role = $empl_data->username;
+          $role = $empl_data->empl_name;
              
           $datas_balance = $this->queries->get_remainbalance($customer_id);
           $customer_data = $this->queries->get_customerData($customer_id);

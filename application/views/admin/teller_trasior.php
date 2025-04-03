@@ -58,8 +58,8 @@
             <?php if (!empty($transactions)): ?>
                 <?php foreach ($transactions as $row): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($row->branch); ?></td>
-                        <td><?php echo htmlspecialchars($row->employee); ?></td>
+                        <td><?php echo htmlspecialchars($row->blanch_name); ?></td>
+                        <td><?php echo htmlspecialchars($row->emply); ?></td>
                         <td><?php echo number_format($row->total_loan_approved, 2); ?></td>
                         <td><?php echo number_format($row->total_deposit, 2); ?></td>
                     </tr>

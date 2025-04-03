@@ -9187,9 +9187,9 @@ public function create_saving_deposit(){
 	public function teller_trasior(){
 		$this->load->model('queries');
 		$comp_id = $this->session->userdata('comp_id');
-		$transactions = $this->queries-> get_empl_transaction($comp_id);
+		$transactions = $this->queries-> get_payments_summary($comp_id);
 		// echo "<pre>";
-		// print_r($transaction);
+		// print_r($transactions);
 		//        exit();
 		$this->load->view('admin/teller_trasior',['transactions'=>$transactions]);
 	}
