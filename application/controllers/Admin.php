@@ -2384,35 +2384,26 @@ public function disburse($loan_id){
 	  $role = $admin_data->role;
 // print_r($balance);
 // 	      exit();
+   
+	
       $interest_loan = $loan_data_interst->interest_formular;
-	  $interest = $interest_loan;
+      $interest = $interest_loan;
       $end_date = $day * $session;
-      if($loan_data_interst->rate == 'FLAT RATE') {
-      // $now = date("Y-m-d");
-      // $someDate = DateTime::createFromFormat("Y-m-d",$now);
-      // $someDate->add(new DateInterval('P'.$end_date.'D'));
-      // $return_data = $someDate->format("Y-m-d");
-
-      // $date1 = $now;
-      // $date2 = $return_data;
-
-      // $ts1 = strtotime($date1);
-      // $ts2 = strtotime($date2);
-
-      // $year1 = date('Y', $ts1);
-      // $year2 = date('Y', $ts2);
-
-      // $month1 = date('m', $ts1);
-      // $month2 = date('m', $ts2);
-
-      // $diff = (($year2 - $year1) * 12) + ($month2 - $month1);
-      	$day_data = $end_date;
-	    $months = floor($day_data / 30);
-       
-      $loan_interest = $interest /100 * $balance * $months;
-      $total_loan = $balance + $loan_interest;
-
-      }elseif($loan_data_interst->rate == 'SIMPLE'){
+      
+      if ($loan_data_interst->rate == 'FLAT RATE') {
+        $day_data = $end_date;
+        
+        // Use fractional months
+        $months = $day_data / 30;
+        
+        // Calculate loan interest
+        $loan_interest = ($interest / 100) * $balance * $months;
+        
+        // Calculate total loan amount
+        $total_loan = $balance + $loan_interest;
+    }
+    
+      elseif($loan_data_interst->rate == 'SIMPLE'){
       $loan_interest = $interest /100 * $balance;
       $total_loan = $balance + $loan_interest;
       }elseif($loan_data_interst->rate == 'REDUCING'){
@@ -3188,6 +3179,16 @@ public function create_withdrow_balance($customer_id){
 
 		  // print_r($withdrow_newbalance);
 		  //        exit();
+
+      $empl_id = $this->session->userdata('empl_id');
+      $manager_data = $this->queries->get_manager_data($empl_id);
+      $comp_id = $manager_data->comp_id;
+      $company_data = $this->queries->get_companyData($comp_id);
+      $blanch_data = $this->queries->get_blanchData($blanch_id);
+      $empl_data = $this->queries->get_employee_data($empl_id);
+
+        // print_r($empl_data);
+        //          exit();
 		 
 		  $day_loan = $this->queries->get_loan_day($loan_id);
 		  $admin_data = $this->queries->get_admin_role($comp_id);
@@ -3251,7 +3252,7 @@ public function create_withdrow_balance($customer_id){
 		  $withMoney = ($blanch_capital) - ($new_balance + $sum_total_loanFee);
            
           //admin role
-          $role = $admin_data->role;
+          $role =  $empl_data->empl_name;
              
 		  $datas_balance = $this->queries->get_remainbalance($customer_id);
 		  $customer_data = $this->queries->get_customerData($customer_id);
@@ -3590,12 +3591,19 @@ $this->db->query("INSERT INTO tbl_outstand (`comp_id`,`loan_id`,`blanch_id`,`loa
 	      $old_balance = $remain_balance;
 	      $sum_balance = $old_balance + $new_depost;
 
+        $empl_id = $this->session->userdata('empl_id');
+        $manager_data = $this->queries->get_manager_data($empl_id);
+        $comp_id = $manager_data->comp_id;
+        $company_data = $this->queries->get_companyData($comp_id);
+        $blanch_data = $this->queries->get_blanchData($blanch_id);
+        $empl_data = $this->queries->get_employee_data($empl_id);
+
 	      @$blanch_account = $this->queries->get_amount_remainAmountBlanch($blanch_id,$payment_method);
 		  $blanch_capital = @$blanch_account->blanch_capital;
 		  $depost_money = $blanch_capital + $new_depost;
-               
+       
 	      //admin role
-	      $role = $admin_data->admin_name;
+	      $role = $empl_data->empl_name;
           
 
 	      $out_data = $this->queries->getOutstand_loanData($loan_id);
@@ -10108,7 +10116,7 @@ public function sendsms($phone,$massage){
 	//public function sendsms(){f
 	//$phone = '255628323760';
 	//$massage = 'mapenzi yanauwa';
-	$api_key = 'WSfPPbHxmzcOgd.b';
+	$api_key = 'UyLAlx3bXeDIKjQ5qBeg0UGe8s';
 	//$api_key = 'qFzd89PXu1e/DuwbwxOE5uUBn6';
 	//$curl = curl_init();
   $ch = curl_init();

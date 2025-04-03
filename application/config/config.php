@@ -27,7 +27,7 @@ date_default_timezone_set('Africa/Dar_es_Salaam');
 */
 
 
- $config['base_url'] = 'https://fortunefinance.loan-pocket.com/'; 
+ $config['base_url'] = 'https://lugracemicrofinance.com/'; 
 //  $config['base_url'] = 'http://localhost:8093/'; 
 /*
 |--------------------------------------------------------------------------
