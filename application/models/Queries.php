@@ -1065,7 +1065,7 @@ public function get_totalLoanout($customer_id){
 			$this->db->join('tbl_blanch b', 'p.blanch_id = b.blanch_id', 'inner'); 
 			$this->db->join('tbl_loans l', 'p.loan_id = l.loan_id', 'inner'); 
 			$this->db->where('p.comp_id', $comp_id); // Filter by comp_id
-			$this->db->where('DATE(p.data_date)', date('Y-m-d')); // Filter by today's date
+			$this->db->where('DATE(p.date_data)', date('Y-m-d')); // Filter by today's date
 			$this->db->group_by(['p.emply', 'b.blanch_name']);
 			$this->db->order_by('b.blanch_name', 'ASC');
 			$this->db->order_by('p.emply', 'ASC');
